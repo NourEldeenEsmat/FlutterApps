@@ -241,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: const Text(AppStrings.registerButton),
                           ),
                         ),
-                        const SizedBox(height: 50),
+                        const SizedBox(height: 30),
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.0),
                           child: Text(

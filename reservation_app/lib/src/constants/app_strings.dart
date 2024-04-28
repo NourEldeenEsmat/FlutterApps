@@ -1,7 +1,7 @@
 class AppStrings {
   //api urls
-  // static const String baseUrl = 'https://booking-app-backend-4n68.onrender.com';
-  static const String baseUrl = 'http://192.168.10.3:3000';
+  static const String baseUrl = 'https://booking-app-backend-orrd.onrender.com';
+  // static const String baseUrl = 'http://192.168.10.3:3000';
 
   static const String loginTitle = 'Login';
   static const String loginButton = 'Login';

@@ -20,7 +20,7 @@ class _PreviousViewState extends State<PreviousView> {
       builder: (BuildContext context, ReservationProvider bloc,_) => ListView.separated(
       separatorBuilder: (context, index) => const SizedBox(height: 20),
       physics: const BouncingScrollPhysics(),
-      itemCount: 5,
+      itemCount: bloc.reservations.length,
       itemBuilder: (context, index) {
         return PreviousReservationWidget(
           clubName: bloc.reservations[index].clubId,

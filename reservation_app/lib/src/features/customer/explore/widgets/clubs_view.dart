@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:reservation_app/src/features/admin/clubs/providers/manage_clubs_provider.dart';
 import 'package:reservation_app/src/features/customer/clubs/widgets/club_widget.dart';
 import 'package:reservation_app/src/features/customer/home/widgets/popular_clubs_widget.dart';
+
+import '../../clubs/provider/customer_club_provider.dart';
 
 class ClubsView extends StatefulWidget {
   const ClubsView({super.key});
@@ -15,22 +19,25 @@ class _ClubsViewState extends State<ClubsView> {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
       child: SizedBox(
-        child: ListView.separated(
+        child: Consumer<CustomerClubsProvider>(
+    builder: (context, CustomerClubsProvider, child) {
+
+     return ListView.separated(
           shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          itemCount: 3,
+          scrollDirection:Axis.vertical,
+          itemCount: CustomerClubsProvider.clubs.length,
           physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) {
             return ClubWidget(
-              clubName: 'NoHo’s Club',
-              clubType: 'American Club',
+              clubName: CustomerClubsProvider.clubs[index].clubName,
+              clubType: CustomerClubsProvider.clubs[index].clubType!,
               clubImage: 'assets/images/restaurant.jpg',
             );
           },
           separatorBuilder: (context, index) {
             return const SizedBox(height: 10);
           },
-        ),
+  ); })
       ),
     );
   }

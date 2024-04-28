@@ -5,7 +5,6 @@ import 'package:reservation_app/src/constants/app_colors.dart';
 
 class ClubDescriptionScreen extends StatefulWidget {
   const ClubDescriptionScreen({super.key});
-
   @override
   State<ClubDescriptionScreen> createState() => _ClubDescriptionScreenState();
 }

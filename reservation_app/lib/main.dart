@@ -12,6 +12,7 @@ import 'package:reservation_app/src/features/admin/scoreboard/providers/manage_s
 import 'package:reservation_app/src/features/admin/tables/providers/manage_tables_provider.dart';
 import 'package:reservation_app/src/features/auth/login/providers/login_provider.dart';
 import 'package:reservation_app/src/features/customer/chat/providers/chat_provider.dart';
+import 'package:reservation_app/src/features/customer/clubs/provider/customer_club_provider.dart';
 import 'package:reservation_app/src/features/customer/explore/providers/explore_provider.dart';
 import 'package:reservation_app/src/features/customer/main/providers/main_provider.dart';
 import 'package:reservation_app/src/features/customer/profile/providers/profile_provider.dart';
@@ -34,6 +35,9 @@ void main() async {
       providers: [
         ChangeNotifierProvider(
           create: (context) => CompleteProfileProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CustomerClubsProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => MainProvider(),

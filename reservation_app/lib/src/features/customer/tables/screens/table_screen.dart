@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reservation_app/src/core/utils/widgets/custom_appbar.dart';
@@ -41,31 +40,28 @@ class _TableScreenState extends State<TableScreen> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child:  Container(
-                    child: Consumer<CustomerTablesProvider>(
-                      builder: (BuildContext context, CustomerTablesProvider bloc,_) =>
-                          ListView.separated(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: 5,
-                            itemBuilder: (BuildContext context, int index) {
-                              return AvailableTablesWidget(
-                                clubName: '${bloc.tablesList[index].tableClub}',
-                                tableName: bloc.tablesList[index].tableNumber,
-                                reservationDate: bloc.tablesList[index].tableDescription,
-                                reservationTime: bloc.tablesList[index].tableDescription,
-                                reservedSeats: bloc.tablesList[index].reservedSeats,
-                                totalSeats: bloc.tablesList[index].tableCapacity,
-                                clubImage: 'assets/images/restaurant.jpg',
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(height: 10);
-                            },
-                          )
-                    ),
-
+                  child:  Consumer<CustomerTablesProvider>(
+                    builder: (context, CustomerTablesProvider bloc,child) =>
+                        ListView.separated(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: bloc.tablesList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return AvailableTablesWidget(
+                              clubName: bloc.tablesList[index].tableClub.clubName,
+                              tableName: bloc.tablesList[index].tableNumber,
+                              reservationDate: bloc.tablesList[index].tableDescription,
+                              reservationTime: bloc.tablesList[index].tableDescription,
+                              reservedSeats: bloc.tablesList[index].reservedSeats,
+                              totalSeats: bloc.tablesList[index].tableCapacity,
+                              clubImage: 'assets/images/restaurant.jpg',
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(height: 10);
+                          },
+                        )
                   ),
                 ),
               ),

@@ -1,5 +1,7 @@
 import 'package:reservation_app/src/features/customer/clubs/model/club_model.dart';
 
+import '../../../admin/clubs/models/club_model.dart';
+
 class TableModel {
   final String tableId;
   final String tableNumber;

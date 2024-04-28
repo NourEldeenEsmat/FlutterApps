@@ -38,7 +38,7 @@ class ChatScreen extends StatelessWidget {
                       indent: 20,
                       endIndent: 20,
                     )
-                  : SizedBox.shrink(); // Otherwise, hide the divider
+                  : const SizedBox.shrink(); // Otherwise, hide the divider
             },
             itemCount: chatProvider.chatList.length,
             itemBuilder: (context, index) {
@@ -48,19 +48,19 @@ class ChatScreen extends StatelessWidget {
                 key: UniqueKey(),
                 secondaryBackground: Container(
                   color: Colors.red,
+                  alignment: Alignment.centerLeft,
                   child: const Padding(
                     padding: EdgeInsets.only(left: 360),
                     child: Icon(Icons.delete),
                   ),
-                  alignment: Alignment.centerLeft,
                 ),
                 background: Container(
                   color: Colors.grey,
+                  alignment: Alignment.centerRight,
                   child: const Padding(
                     padding: EdgeInsets.only(right: 360),
                     child: Icon(Icons.volume_mute),
                   ),
-                  alignment: Alignment.centerRight,
                 ),
                 direction: DismissDirection.horizontal,
                 onDismissed: (direction) {
@@ -111,7 +111,7 @@ class ChatScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               padding: const EdgeInsets.all(4),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.volume_off,
                                 color: Colors.white,
                                 size: 16,

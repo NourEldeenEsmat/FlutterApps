@@ -24,9 +24,10 @@ import 'package:reservation_app/src/features/customer/tables/screens/table_scree
 import 'package:reservation_app/src/features/onboarding/screens/complete_profile_screen.dart';
 import 'package:reservation_app/src/features/super%20admin/main/screens/super_admin_home.dart';
 import '../../features/auth/login/screens/login_screen.dart';
+import '../../features/customer/chat/screens/chat_screen.dart';
 import '../../features/customer/clubs/screens/club_screen.dart';
 import '../../features/customer/settings/screens/settings_screen.dart';
-
+import 'package:reservation_app/src/features/admin/clubs/screens/manage_clubs_screen.dart';
 class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: '/auth_screen',
@@ -35,6 +36,11 @@ class AppRouter {
         path: '/auth_screen',
         builder: (context, state) {
           return const AuthScreen();
+        },
+      ),GoRoute(
+        path: '/ManageClubsScreen',
+        builder: (context, state) {
+          return const ManageClubsScreen();
         },
       ),
       GoRoute(
@@ -104,14 +110,14 @@ class AppRouter {
           return const TableScreen();
         },
       ),
-      GoRoute(
-        path: '/table_description_screen',
-        builder: (context, state) {
-          //decode extra data
-          return TableDescriptionScreen(
-          );
-        },
-      ),
+      // GoRoute(
+      //   path: '/table_description_screen',
+      //   builder: (context, state) {
+      //     //decode extra data
+      //     return TableDescriptionScreen(
+      //     );
+      //   },
+      // ),
       GoRoute(
         path: '/club_description_screen',
         builder: (context, state) {
@@ -194,6 +200,12 @@ class AppRouter {
         path: '/super_admin_main_screen',
         builder: (context, state) {
           return const SuperAdminHome();
+        },
+      ),
+      GoRoute(
+        path: '/chat_screen',
+        builder: (context, state) {
+          return const ChatScreen();
         },
       ),
     ],

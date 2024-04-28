@@ -66,7 +66,11 @@ class ClubProvider extends ChangeNotifier {
     //get all clubs
     Response response = await _dioClient
         .init()
-        .get('/clubs/admin/$adminId')
+        .get('/clubs/admin/$adminId',options: Options(
+      followRedirects: false,
+      validateStatus: (status) {
+        return status! < 500;
+      },))
         .then((value) => value)
         .catchError((error) {
       print(error);

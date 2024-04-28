@@ -20,7 +20,7 @@ class _UpcomingViewState extends State<UpcomingView> {
       builder: (BuildContext context, ReservationProvider bloc,_) => ListView.separated(
       separatorBuilder: (context, index) => const SizedBox(height: 20),
       physics: const BouncingScrollPhysics(),
-      itemCount: 5,
+      itemCount: bloc.reservations.length,
       itemBuilder: (context, index) {
         return UpcomingReservationWidget(
           clubName: bloc.reservations[index].clubId,

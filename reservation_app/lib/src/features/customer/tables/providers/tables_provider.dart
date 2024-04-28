@@ -22,7 +22,11 @@ class CustomerTablesProvider extends ChangeNotifier {
   // Get all tables
   Future<void> getAllTables() async {
     try {
-      Response response = await dioClient.init().get('/tables');
+      Response response = await dioClient.init().get('/tables',options: Options(
+        followRedirects: false,
+        validateStatus: (status) {
+          return status! < 500;
+        },));
 
       if (response.statusCode == 200) {
         tablesList = (response.data as List)

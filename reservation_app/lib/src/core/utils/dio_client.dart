@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:reservation_app/src/constants/app_strings.dart';
+import 'package:reservation_app/src/core/utils/shared_preferences.dart';
 
 class DioClient extends ChangeNotifier {
   Dio init() {
@@ -10,7 +11,9 @@ class DioClient extends ChangeNotifier {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
+
       ),
+        // BaseOptions.headers["Authorization"] = "Bearer " +SharedPrefs.getToken();
     );
     dio.interceptors.add(ApiInterceptors());
     dio.options.baseUrl = AppStrings.baseUrl;
@@ -23,6 +26,9 @@ class ApiInterceptors extends InterceptorsWrapper {
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     // Do something before request is sent
+    // options.headers["Authorization"] = "token ${SharedPrefs.getToken()}";
+    String token = await SharedPrefs.getToken();
+    options.headers.addAll({'authorization': 'Bearer $token'});
     handler.next(options);
   }
 

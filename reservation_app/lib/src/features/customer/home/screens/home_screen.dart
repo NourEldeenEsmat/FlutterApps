@@ -13,6 +13,10 @@ import 'package:reservation_app/src/features/customer/home/widgets/scoreboard_wi
 import 'package:reservation_app/src/features/customer/home/widgets/your_reservation_widget.dart';
 import 'package:reservation_app/src/features/customer/reservations/providers/reservation_provider.dart';
 
+import '../../../admin/clubs/providers/manage_clubs_provider.dart';
+import '../../clubs/provider/customer_club_provider.dart';
+import '../../tables/providers/tables_provider.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -218,21 +222,46 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 20),
                     child: SizedBox(
                       height: 255,
-                      child: ListView.separated(
+                      child: Consumer<CustomerClubsProvider>(
+    builder: (context, CustomerClubsProvider, child) {
+
+    return CustomerClubsProvider.clubs.isNotEmpty
+        ?ListView.separated(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: 3,
+                        itemCount: CustomerClubsProvider.clubs.length,
                         itemBuilder: (context, index) {
                           return PopularClubsWidget(
-                            clubName: 'NoHo’s Club',
-                            clubType: 'American Club',
+                            clubName: CustomerClubsProvider.clubs[index].clubName,
+                            clubType: CustomerClubsProvider.clubs[index].clubType!,
                             clubImage: 'assets/images/restaurant.jpg',
                           );
                         },
                         separatorBuilder: (context, index) {
                           return const SizedBox(width: 5);
                         },
-                      ),
+                      ): SizedBox(
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment:
+        CrossAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.event_busy,
+            size: 40,
+            color: AppColors.textColor,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'No Clubs, 😂😂😂!',
+            style: Theme.of(context)
+                .textTheme
+                .labelMedium,
+          ),
+        ],
+      ),
+    );})
                     ),
                   ),
                 ],
@@ -272,24 +301,26 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 20),
                     child: SizedBox(
                       height: 180,
-                      child: ListView.separated(
+                      child:Consumer<CustomerTablesProvider>(
+                        builder: (context, CustomerTablesProvider bloc,child) =>
+                            ListView.separated(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: 3,
+                        itemCount: bloc.tablesList.length,
                         itemBuilder: (context, index) {
                           return AvailableTablesWidget(
-                            tableName: 'Table 5',
-                            clubName: 'NoHo’s Club',
-                            reservationDate: 'Feb 26th, 2024',
-                            reservationTime: '12:20 PM',
-                            seats: "3/8",
+                            clubName: bloc.tablesList[index].tableClub.clubName,
+                            tableName: bloc.tablesList[index].tableNumber,
+                            reservationDate: bloc.tablesList[index].tableDescription,
+                            reservationTime: bloc.tablesList[index].tableDescription,
+                            seats: '${bloc.tablesList[index].reservedSeats}/${bloc.tablesList[index].tableCapacity}',
                             clubImage: 'assets/images/restaurant.jpg',
                           );
                         },
                         separatorBuilder: (context, index) {
                           return const SizedBox(width: 5);
                         },
-                      ),
+                      ),)
                     ),
                   ),
                 ],

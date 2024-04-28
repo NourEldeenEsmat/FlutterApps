@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:reservation_app/src/core/utils/widgets/custom_appbar.dart';
+import 'package:reservation_app/src/features/admin/clubs/providers/manage_clubs_provider.dart';
+import 'package:reservation_app/src/features/customer/clubs/screens/club_description_screen.dart';
 import 'package:reservation_app/src/features/customer/clubs/widgets/search_filter_widget.dart';
 import 'package:reservation_app/src/features/customer/home/widgets/popular_clubs_widget.dart';
 import 'package:dio/dio.dart';
 
 import '../../../../constants/app_strings.dart';
+import '../provider/customer_club_provider.dart';
 
 class ClubScreen extends StatefulWidget {
   const ClubScreen({super.key});
@@ -14,23 +18,10 @@ class ClubScreen extends StatefulWidget {
 }
 
 class _ClubScreenState extends State<ClubScreen> {
-  List clubs = [];
   @override
   void initState() {
-    // TODO: implement initState
+    Provider.of<CustomerClubsProvider>(context, listen: false).initClubs();
     super.initState();
-    getClubs();
-  }
-
-  void getClubs() async {
-    var response = await Dio().get('${AppStrings.baseUrl}/clubs');
-    if(response.statusCode==200){
-      setState(() {
-        clubs = response.data as List;
-      });
-    }else{
-      clubs = [];
-    }
   }
 
   @override
@@ -85,22 +76,34 @@ class _ClubScreenState extends State<ClubScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: SizedBox(
-                  child: ListView.separated(
+                  child:Consumer<CustomerClubsProvider>(
+                    builder: (context, CustomerClubsProvider bloc,child)
+                    => ListView.separated(
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
-                    itemCount: 3,
+                    itemCount: bloc.clubs.length,
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return PopularClubsWidget(
-                        clubName: clubs[index]['clubName'],
-                        clubType: clubs[index]['clubType'],
-                        clubImage: 'assets/images/restaurant.jpg',
+                      return GestureDetector(
+                        child: PopularClubsWidget(
+                          clubName: bloc.clubs[index].clubName,
+                          clubType: bloc.clubs[index].clubType!,
+                          clubImage: bloc.clubs[index].clubId,
+                        ),
+                        onTap: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      const ClubDescriptionScreen()),
+                              (route) => false);
+                        },
                       );
                     },
                     separatorBuilder: (context, index) {
                       return const SizedBox(height: 10);
                     },
-                  ),
+                  )),
                 ),
               ),
             ),

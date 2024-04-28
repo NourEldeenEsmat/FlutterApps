@@ -1,4 +1,4 @@
-class ClubModel {
+class CustomerClubModel {
   final String clubId;
   final String clubName;
   final String? clubAdmin;
@@ -7,7 +7,7 @@ class ClubModel {
   final String? clubPhoneNumber;
 
 
-  ClubModel({
+  CustomerClubModel({
     required this.clubId,
     required this.clubName,
     required this.clubAdmin,
@@ -16,8 +16,8 @@ class ClubModel {
     required this.clubPhoneNumber,
   });
 
-  factory ClubModel.fromJson(Map<String, dynamic> json) {
-    return ClubModel(
+  factory CustomerClubModel.fromJson(Map<String, dynamic> json) {
+    return CustomerClubModel(
       clubId: json['clubId'],
       clubName: json['clubName'],
       clubAdmin: json['clubAdmin'],
